@@ -1,12 +1,13 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { Body, Controller, Post } from '@nestjs/common';
+import { TimeframeDTO } from './RoomProvider/dto/timeframe.dto';
+import { RoomService } from './RoomProvider/room.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly roomService: RoomService) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Post('/search')
+  searchRoomsForTimeframe(@Body() timeframeDto: TimeframeDTO) {
+    return this.roomService.searchRooms(timeframeDto);
   }
 }
