@@ -49,9 +49,7 @@ describe('RoomService', () => {
       });
 
       await expect(room).rejects.toThrow(
-        new BadRequestException(
-          'Check-in or check-out dates cannot be in the past',
-        ),
+        new BadRequestException('dates cannot be in the past'),
       );
     });
 
