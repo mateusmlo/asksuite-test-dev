@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { DateTime } from 'luxon';
 import puppeteer, { Page } from 'puppeteer';
 import { TimeframeDTO } from './dto/timeframe.dto';
@@ -7,6 +7,8 @@ import { RoomDTO } from './dto/room.dto';
 
 @Injectable()
 export class RoomService {
+  private logger = new Logger('RoomService');
+
   private async setupPageContext() {
     const browser = await puppeteer.launch({
       defaultViewport: { width: 1366, height: 768 },
@@ -48,9 +50,7 @@ export class RoomService {
       checkinDate.diffNow().milliseconds < 0 ||
       checkoutDate.diffNow().milliseconds < 0
     ) {
-      throw new BadRequestException(
-        'Check-in or check-out dates cannot be in the past',
-      );
+      throw new BadRequestException('dates cannot be in the past');
     }
 
     if (checkoutDate.diff(checkinDate).milliseconds < 0) {
@@ -61,7 +61,13 @@ export class RoomService {
   }
 
   private async getRoomsInformation(page: Page) {
-    await page.waitForSelector('.room-option-wrapper');
+    //* we wait for a room option element to load, if it timeouts then there are no rooms available
+    await page
+      .waitForSelector('.room-option-wrapper', { timeout: 10000 })
+      .catch((err) => {
+        this.logger.error(err);
+        return [];
+      });
 
     // https://github.com/puppeteer/puppeteer/issues/303
     //* here we take from the page only what we need: the rooms section
