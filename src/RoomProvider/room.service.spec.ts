@@ -8,7 +8,7 @@ import { BadRequestException } from '@nestjs/common';
 describe('RoomService', () => {
   let roomService: RoomService;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [RoomService],
     }).compile();
@@ -31,7 +31,7 @@ describe('RoomService', () => {
     }, 10000);
 
     it('should return empty array if no rooms available', async () => {
-      jest.spyOn(roomService, 'searchRooms').mockResolvedValue([]);
+      jest.spyOn(roomService, 'searchRooms').mockResolvedValueOnce([]);
 
       const noRooms = await roomService.searchRooms({
         checkin: '2023-12-27',
