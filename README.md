@@ -6,7 +6,7 @@ Num geral foi um desafio técnico relativamente simples, com a parte mais desafi
 
 - O endpoint possui validação das datas: não podem estar no passado, fora do formato definido no payload do desafio (yyyy-mm-dd), ou possuir um check-out com data anterior ao check-in. 
 - O Puppeteer é inicializado de forma diferente a depender do ambiente de desenvolvimento, com configurações específicas para executar em container.
-- Como os elementos extraídos do Puppeteer precisam ser serializáveis, decidi utilizar o JSDOM para que eu pudesse converter as strings em um DOM e então navegar pelos elementos como no browser. Isso facilitou muito todo o processo!
+- Como os elementos extraídos do Puppeteer precisam ser serializáveis, decidi utilizar o JSDOM para que eu pudesse converter as strings em um DOM e então navegar pelos elementos com as APIs do browser. Isso facilitou muito todo o processo!
 - A API está documentada com Swagger e pode ser acessada em http://localhost:<PORTA>/docs
 - O projeto pode ser executado tanto localmente quanto em container via Docker (também não foi muito fácil fazer o Puppeteer funcionar ali)
 
