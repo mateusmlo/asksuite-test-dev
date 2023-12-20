@@ -10,6 +10,10 @@ Num geral foi um desafio técnico relativamente simples, com a parte mais desafi
 - A API está documentada com Swagger e pode ser acessada na rota /docs
 - O projeto pode ser executado tanto localmente quanto em container via Docker (também não foi muito fácil fazer o Puppeteer funcionar ali)
 
+### Débitos técnicos:
+
+- Os testes do arquivo `room.service.spec.ts` dependem de conexão à internet para funcionarem. Tentei desenvolver os testes com um arquivo HTML local, o que seria ideal, mas isso requer configurações bem específicas e complexas para o Puppeteer interoperar com o Node no ambiente de testes. Testei diversas alternativas mas não encontrei nenhuma satisfatória.
+
 ## Stack
 
 - NestJS
@@ -21,11 +25,13 @@ Num geral foi um desafio técnico relativamente simples, com a parte mais desafi
 ## Como Rodar
 
 Primeiramente faça uma cópia do arquivo .env.example para um .env e utilize a porta de sua escolha para a variável APP_PORT:
+
 ```sh
 cp .env.example .env
 ```
 
 ### Para executar localmente:
+
 ```sh
 # instalar as dependências
 yarn
@@ -56,7 +62,7 @@ docker build --build-arg APP_PORT=3333 . -t mateusmlo/asksuite-test:latest
 
 E então executar o container:
 
-```sh 
+```sh
 # o valor de -p precisa ser igual ao APP_PORT
 docker run -d -p 3333 mateusmlo/asksuite-test:latest 
 ```
