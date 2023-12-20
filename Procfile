@@ -1,1 +1,1 @@
-web: npm i -g yarn && yarn global add typescript @nestjs/cli ts-node && yarn add -D @types/node && yarn && yarn build && yarn start:prod
+web: yarn start:prod
