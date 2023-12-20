@@ -1,4 +1,4 @@
-[![Relase to Docker Hub](https://github.com/mateusmlo/asksuite-test-dev/actions/workflows/docker-image.yml/badge.svg?branch=main)](https://github.com/mateusmlo/asksuite-test-dev/actions/workflows/docker-image.yml)
+[![ci](https://github.com/mateusmlo/asksuite-test-dev/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/mateusmlo/asksuite-test-dev/actions/workflows/ci.yml) [![Relase to Docker Hub](https://github.com/mateusmlo/asksuite-test-dev/actions/workflows/docker-image.yml/badge.svg?branch=main)](https://github.com/mateusmlo/asksuite-test-dev/actions/workflows/docker-image.yml)
 # backend-challenge
 
 ## Sobre o desafio
