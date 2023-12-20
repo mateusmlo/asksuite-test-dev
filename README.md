@@ -1,3 +1,4 @@
+[![Relase to Docker Hub](https://github.com/mateusmlo/asksuite-test-dev/actions/workflows/docker-image.yml/badge.svg?branch=main)](https://github.com/mateusmlo/asksuite-test-dev/actions/workflows/docker-image.yml)
 # backend-challenge
 
 ## Sobre o desafio
