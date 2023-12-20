@@ -27,13 +27,13 @@ cp .env.example .env
 
 ### Para executar localmente:
 ```sh
-#instalar as dependências
+# instalar as dependências
 yarn
 
-#iniciar o server
+# iniciar o server
 yarn start:dev
 
-#rodar os testes
+# rodar os testes
 yarn test
 ```
 
@@ -42,14 +42,21 @@ yarn test
 Aqui temos duas opções: puxar a imagem do meu dockerhub, ou buildar localmente!
 
 ```sh
-#puxar direto do dockerhub
+# puxar direto do dockerhub
 docker pull mateusmlo/asksuite-test:latest
 ```
 
 Buildar a imagem localmente:
 
 ```sh
-#buildar a imagem
-#ATENÇÃO: para MacOS é necessário um parametro adicional --platform linux/amd64 para a instalação do chrome
+# buildar a imagem
+# ATENÇÃO: para MacOS é necessário um parametro adicional --platform linux/amd64 para a instalação do chrome
 docker build --build-arg APP_PORT=3333 . -t mateusmlo/asksuite-test:latest
+```
+
+E então executar o container:
+
+```sh 
+# o valor de -p precisa ser igual ao APP_PORT
+docker run -d -p 3333 mateusmlo/asksuite-test:latest 
 ```
