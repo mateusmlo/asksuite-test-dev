@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { DateTime } from 'luxon';
-import puppeteer, { Page } from 'puppeteer';
+import puppeteer, { Browser, Page } from 'puppeteer';
 import { TimeframeDTO } from './dto/timeframe.dto';
 import { JSDOM } from 'jsdom';
 import { RoomDTO } from './dto/room.dto';
@@ -9,8 +9,24 @@ import { RoomDTO } from './dto/room.dto';
 export class RoomService {
   private logger = new Logger('RoomService');
 
-  private async setupPageContext() {
-    const browser = await puppeteer.launch({
+  private async setupPuppeteer() {
+    let browser: Browser;
+
+    if (process.env.APP_MODE === 'prod') {
+      browser = await puppeteer.launch({
+        executablePath: '/usr/bin/google-chrome',
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+        defaultViewport: { width: 1366, height: 768 },
+        headless: 'new',
+        ignoreHTTPSErrors: true,
+      });
+
+      const page = await browser.newPage();
+
+      return { page, browser };
+    }
+
+    browser = await puppeteer.launch({
       defaultViewport: { width: 1366, height: 768 },
       headless: 'new',
       ignoreHTTPSErrors: true,
@@ -27,7 +43,7 @@ export class RoomService {
 
     this.validateTimeframes(checkinDate, checkoutDate);
 
-    const { page, browser } = await this.setupPageContext();
+    const { page, browser } = await this.setupPuppeteer();
 
     const checkinLocale = checkinDate.toFormat('dd/MM/yyyy');
     const checkoutlocale = checkoutDate.toFormat('dd/MM/yyyy');
