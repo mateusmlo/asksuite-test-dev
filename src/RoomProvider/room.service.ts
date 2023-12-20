@@ -9,7 +9,7 @@ import { RoomDTO } from './dto/room.dto';
 export class RoomService {
   private logger = new Logger('RoomService');
 
-  private async setupPageContext() {
+  private async setupPuppeteer() {
     let browser: Browser;
 
     if (process.env.APP_MODE === 'prod') {
@@ -43,7 +43,7 @@ export class RoomService {
 
     this.validateTimeframes(checkinDate, checkoutDate);
 
-    const { page, browser } = await this.setupPageContext();
+    const { page, browser } = await this.setupPuppeteer();
 
     const checkinLocale = checkinDate.toFormat('dd/MM/yyyy');
     const checkoutlocale = checkoutDate.toFormat('dd/MM/yyyy');
